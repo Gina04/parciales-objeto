@@ -1,0 +1,94 @@
+www.plantuml.com/plantuml/png/XLF1RXf13BtxAqQSe2f8lLRHAZIebwfgbABqR6PTOZgxi_BCeaeq_zx1MJQpkucu0FFiP_izxDiGKM9RERXp689vQ2EUu0yxNr4K7o1oum6EvBpb4ill-9Shd2-WfB37Ctb-f2UshVCB0pMdnCrBXF90HGSlA8dt3B3UXIXeezccsjfmH9I4VJGz7KxOCPxDP90ys7LHldRokmEbFf591CtDpQzlFuhYz8QQ0TEOZ2lSi7-3-WK3NIkaTQpwkWw_qKK_wJqjOQwOyPv8wxZAD0e5JlJQCcx8FJBLqKCZP9EUY9PzJM7mPpns7KwPemErILt_lYJds5UkqNLZHQQgyVh8LkMXfHB3VA0l5M0yz7een2H3jihVqDQtChTOSPsKFw4boH1LhslR3t-F4iy_K3AdOIX3QNP0kqFPumdi-GlU5VsJzcsjgGbrZeweZtiAM2R8N14wRRiLh4FZ9L8shO460nv8V5Zll9H-D52-LTfdT3tvPQBpie30SknadwzjASjYzcbsEJvukOvbk_nNc1xKjHzXtGwFK9XwhnaN60OcJqD38uRnFc7fqimVPghtin6rjm-kLcsXsvyXKkXmvu_LwhNWBTLbMxd_
+
+
+
+@startuml
+Class Ruta{
+kilometros
+tipo
+
+velocidadMaxima()
+desgastar(vehiculo) 
+nivelDesgaste(vehiculo) 
+mejorar()
+}
+
+Abstract TipoRuta{
+nivelDesgaste(ruta, vehiculo)
+{abstract} velocidadMaxima()
+{abstract} mejorar(ruta)
+}
+
+object tierra <<WKO>>{
+velocidadMaxima()
+mejorar(ruta)  
+}
+
+object ripio <<WKO>>{
+velocidadBase
+velocidadMaxima()
+mejorar(ruta) 
+}
+
+class Asfalto{
+velocidadMaxima
+velocidadMaxima() 
+nivelDesgaste(ruta, vehiculo)
+mejorar(ruta)
+}
+
+object clima <<WKO>>{
+resistenciaDelViento
+precipitaciones
+}
+
+Abstract Vehiculo{
+{abstract}velocidadBase()
+velocidadVehiculo()
+velocidadFinal(ruta)
+tiempo(ruta)
+desgastarRuedas(nivelDesgaste)
+viajar(ruta)
+estimarTiempoDeTour(camino)
+hacerTour(camino)
+}
+
+Class VehiculoParticular{
+velocidad
+velocidadBase()
+}
+
+class VehiculoCarga{
+carga
+velocidadBase()
+velocidadSegunCarga()
+llevaCargaPesada() 
+desgastarRuedas(nivelDesgaste)
+}
+
+class VehiculoTransporte{
+velocidad 
+pasajerosAbordo
+velocidadBase() 
+}
+
+class Rueda{
+nivelDesgaste
+desgastar(valor)
+sirve()
+}
+
+Ruta-r->"1"TipoRuta
+tierra-u-|> TipoRuta
+ripio-u-|> TipoRuta
+Asfalto-u-|> TipoRuta
+
+VehiculoParticular-u-|>Vehiculo
+VehiculoCarga-u-|>Vehiculo
+VehiculoTransporte-u-|>Vehiculo
+
+Vehiculo-l->"*"Rueda: ruedas
+Vehiculo..u>clima
+Vehiculo..r>Ruta
+Ruta..>Vehiculo
+@enduml
